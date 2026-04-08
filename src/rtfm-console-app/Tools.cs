@@ -10,7 +10,7 @@ public static class Tools
     {
         var sb = new StringBuilder();
 
-        foreach (var file in Directory.GetFiles("../docs", "*.md", SearchOption.AllDirectories))
+        foreach (var file in Directory.GetFiles("../../docs", "*.md", SearchOption.AllDirectories))
         {
             sb.AppendLine($"// --- {Path.GetFileName(file)} ---");
             sb.AppendLine(File.ReadAllText(file));

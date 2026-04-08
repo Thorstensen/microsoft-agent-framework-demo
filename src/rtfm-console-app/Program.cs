@@ -1,14 +1,11 @@
-﻿using System;
-using Azure.AI.Projects;
+﻿using Azure.AI.Projects;
 using Azure.Identity;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 using rtfm_console_app;
 
-var endpoint = Environment.GetEnvironmentVariable("AZURE_OPENAI_ENDPOINT")
-               ?? throw new InvalidOperationException("Set AZURE_OPENAI_ENDPOINT");
-
-var modelName = Environment.GetEnvironmentVariable("AZURE_OPENAI_MODEL_NAME") ?? "gpt-4o-mini";
+var endpoint = GetArguments(args, "--endpoint") ?? throw new ArgumentException("endpoint needs to point to azure foundry service");
+var modelName = GetArguments(args, "--model") ?? "gpt-4o-mini";
 
 AIAgent agent = new AIProjectClient(
         new Uri(endpoint),
@@ -30,3 +27,9 @@ Console.WriteLine(Environment.NewLine);
 var question = Console.ReadLine();
 
 Console.WriteLine(await agent.RunAsync());
+
+string? GetArguments(string[] args, string key)
+{
+    var idx = Array.IndexOf(args, key);
+    return idx >= 0 && idx + 1 < args.Length ? args[idx + 1] : null;
+}
