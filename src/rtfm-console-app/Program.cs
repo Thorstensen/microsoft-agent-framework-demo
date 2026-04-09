@@ -26,11 +26,17 @@ AIAgent agent = new AIProjectClient(
         tools: [AIFunctionFactory.Create(Tools.GetDocumentation)]
     );
 
-Console.WriteLine("Ask me anything about the documentation!");
-Console.WriteLine(Environment.NewLine);
-var question = Console.ReadLine();
+while (true)
+{
+    var question = Console.ReadLine();
 
-Console.WriteLine(await agent.RunAsync());
+    Console.WriteLine("Ask me anything about the documentation!");
+    Console.WriteLine(Environment.NewLine);
+    
+    if (string.IsNullOrWhiteSpace(question)) continue;
+
+    Console.WriteLine(await agent.RunAsync(question));
+}
 
 string? GetArguments(string[] args, string key)
 {
