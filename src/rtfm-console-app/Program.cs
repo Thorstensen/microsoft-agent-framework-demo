@@ -28,10 +28,8 @@ AIAgent agent = new AIProjectClient(
 
 while (true)
 {
-    var question = Console.ReadLine();
-
     Console.WriteLine("Ask me anything about the documentation!");
-    Console.WriteLine(Environment.NewLine);
+    var question = Console.ReadLine();
     
     if (string.IsNullOrWhiteSpace(question)) continue;
 
